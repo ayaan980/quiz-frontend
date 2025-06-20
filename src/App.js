@@ -61,7 +61,6 @@ function App() {
   return (
     <div className="App">
       <h1>AI Quiz Generator</h1>
-      <h2>🔥 This is a test change!</h2>
 
       {!submitted && (
         <>
@@ -71,9 +70,17 @@ function App() {
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
           />
-          <button onClick={handleGenerateQuiz} disabled={loading}>
-            {loading ? 'Generating...' : 'Generate Quiz'}
-          </button>
+         <button
+  onClick={handleGenerateQuiz}
+  className="generate-btn"
+  disabled={loading}
+>
+  {loading ? 'Generating...' : 'Generate Quiz'}
+</button>
+
+{loading && (
+  <div className="spinner" />
+)}
         </>
       )}
 
@@ -124,7 +131,7 @@ function App() {
       {submitted && (
         <div className="result-section">
           <h2>🎯 Your Score: {score} / {questions.length}</h2>
-          <button onClick={handleTryAgain}>Try Again</button>
+          <button className='retry-btn' onClick={handleTryAgain}>Try Again</button>
         </div>
       )}
     </div>
