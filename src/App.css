@@ -1,29 +1,48 @@
-.App {
-  text-align: center;
-  padding: 2rem;
-}
+/* ====== Reset & App Structure ====== */
 body, html, #root {
   font-family: 'Inter', sans-serif;
   font-weight: 100;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  height: auto;
+}
+
+.App {
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
   background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
 }
 
 #root {
-  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
-  min-height: 100vh;
-  backdrop-filter: blur(4px);
+  position: relative;
+  z-index: 1;
 }
 
+/* ====== Input Field ====== */
 input[type="text"] {
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -43,69 +62,7 @@ input[type="text"]::placeholder {
   color: #e0e0e0;
 }
 
-input {
-  padding: 10px;
-  font-size: 16px;
-  width: 300px;
-  margin-right: 10px;
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.quiz-section {
-  margin-top: 30px;
-  text-align: left;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.question-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-}
-
-.submit-btn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 12px;
-  background: #ffb3c6;
-  color: #373636;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.submit-btn:hover {
-  background: #ffa0b2;
-}
-
-.result-section {
-  margin-top: 20px;
-}
-
-.spinner {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #3498db;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: 20px auto;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
+/* ====== Button Styling ====== */
 button {
   background: rgba(255, 255, 255, 0.25);
   border: none;
@@ -124,12 +81,85 @@ button {
 
 button:hover {
   background: rgba(255, 255, 255, 0.4);
-}
-
-button:hover {
-  background: rgba(255, 255, 255, 0.4);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4);
 }
+
+/* ====== Generate Button Specific ====== */
+.generate-btn {
+  background-color: #878585;
+  color: #252525;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+}
+
+.generate-btn:hover {
+  background-color: #facdd5;
+  transform: scale(1.02);
+}
+
+/* ====== Dropdown Styling ====== */
+.dropdown-container {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 20px auto;
+  flex-wrap: wrap;
+}
+
+.dropdown-container select {
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  outline: none;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  appearance: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-width: 140px;
+}
+
+.dropdown-container select:hover {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: scale(1.02);
+}
+
+.dropdown-container select:focus {
+  border-color: #ffb3c6;
+  box-shadow: 0 0 12px rgba(255, 179, 198, 0.5);
+}
+
+/* ====== Spinner ====== */
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ====== Quiz Section ====== */
+.quiz-section {
+  margin-top: 30px;
+  text-align: left;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .question-card {
   background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
   backdrop-filter: blur(12px);
@@ -141,16 +171,6 @@ button:hover {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.25);
   transition: all 0.3s ease-in-out;
-}
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .question-card:hover {
@@ -175,26 +195,27 @@ button:hover {
 
 .question-card input[type="radio"] {
   margin-right: 8px;
-  accent-color: #ffb3c6; /* soft pinkish accent */
+  accent-color: #ffb3c6;
 }
 
-.generate-btn {
+/* ====== Submit Button ====== */
+.submit-btn {
+  margin-top: 20px;
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #878585; /* Base color */
-  color: #252525;
-  border: none;
   border-radius: 12px;
+  background: #ffb3c6;
+  color: #373636;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s;
 }
 
-.generate-btn:hover {
-  background-color: #facdd5; /* Lighter or deeper shade on hover */
-  transition: 0.3s ease;
-  transform: scale(1.02);
+.submit-btn:hover {
+  background: #ffa0b2;
 }
 
+/* ====== Result Section ====== */
 .result-section {
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(10px);
@@ -268,4 +289,13 @@ button:hover {
 .retry-btn:active {
   transform: scale(0.98);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#headerName {
+  font-size: 2rem;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
 }
