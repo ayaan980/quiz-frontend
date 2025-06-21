@@ -194,8 +194,11 @@ button:hover {
 }
 
 .question-card input[type="radio"] {
-  margin-right: 8px;
+  appearance: auto;
   accent-color: #ffb3c6;
+  margin-right: 10px;
+  transform: scale(1.2); /* Slightly larger */
+  cursor: pointer;
 }
 
 /* ====== Submit Button ====== */
