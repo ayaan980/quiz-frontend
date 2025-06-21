@@ -1,0 +1,117 @@
+/* src/pages/Register.css */
+
+.register-page {
+  height: 100vh;
+  width: 100%;
+  background-image: url("https://images.unsplash.com/photo-1607082349566-187342175e2b?auto=format&fit=crop&w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+}
+
+/* Optional overlay if needed */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+/* Glassmorphism card */
+.register-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 20px;
+  padding: 30px;
+  width: 350px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.register-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+}
+
+/* Inputs */
+.register-card input {
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: background 0.3s ease;
+}
+
+.register-card input::placeholder {
+  color: #eee;
+}
+
+.register-card input:focus {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Button */
+.register-card button {
+  background-color: #fff;
+  color: purple;
+  font-weight: bold;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.register-card button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Footer */
+.register-card .footer {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.register-card .footer a {
+  color: #add8e6;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.register-card .footer a:hover {
+  color: #fff;
+}
+
+/* Success & Error messages */
+.success-message {
+  color: #00ffcc;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.error-message {
+  color: #ff6b6b;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
+}

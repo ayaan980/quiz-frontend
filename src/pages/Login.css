@@ -1,0 +1,107 @@
+/* src/pages/Login.css */
+.login-page {
+  height: 100vh;
+  width: 100%;
+  background-image: url("https://images.unsplash.com/photo-1544510808-91bcbee1df55?auto=format&fit=crop&w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Removed overlay to avoid over-blurring */
+
+/* Glassmorphism login card */
+.login-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 20px;
+  padding: 30px;
+  width: 350px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+}
+
+.login-card input {
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+
+.login-card input::placeholder {
+  color: #eee;
+}
+
+/* Row with remember me and forgot password */
+.options-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.options-row a {
+  color: #add8e6;
+  text-decoration: none;
+}
+
+.options-row a:hover {
+  text-decoration: underline;
+}
+
+/* Login button */
+.login-button {
+  background-color: #fff;
+  color: purple;
+  font-weight: bold;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Footer link */
+.footer {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.footer strong {
+  color: #add8e6;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Error message */
+.error-message {
+  color: #ff6b6b;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
+}
