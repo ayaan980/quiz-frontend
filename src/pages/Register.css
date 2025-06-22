@@ -63,6 +63,7 @@ input {
   line-height: 1.4;
   align-self: center;
 }
+
 .register-card input::placeholder {
   color: #eee;
 }
