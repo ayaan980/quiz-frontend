@@ -11,9 +11,6 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* Removed overlay to avoid over-blurring */
-
-/* Glassmorphism login card */
 .login-card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(6px);
@@ -49,7 +46,6 @@
   color: #eee;
 }
 
-/* Row with remember me and forgot password */
 .options-row {
   display: flex;
   justify-content: space-between;
@@ -57,6 +53,38 @@
   font-size: 14px;
   margin-bottom: 15px;
   color: #fff;
+}
+
+.remember-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.remember-label input[type="checkbox"] {
+
+  accent-color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  appearance: none;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 14px;
+  height: 12px;
+}
+
+.remember-label input[type="checkbox"]:checked::after {
+  content: "\2713"; /* checkmark */
+  color: #fff;
+  font-size: 12px;
+  position: absolute;
 }
 
 .options-row a {
@@ -68,7 +96,6 @@
   text-decoration: underline;
 }
 
-/* Login button */
 .login-button {
   background-color: #fff;
   color: purple;
@@ -84,7 +111,6 @@
   background-color: #f0f0f0;
 }
 
-/* Footer link */
 .footer {
   text-align: center;
   margin-top: 15px;
@@ -98,13 +124,6 @@
   text-decoration: underline;
 }
 
-/* Error message */
-.error-message {
-  color: #ff6b6b;
-  margin-bottom: 10px;
-  font-size: 14px;
-  text-align: center;
-}
 .footer .link {
   color: #add8e6;
   text-decoration: underline;
@@ -116,4 +135,31 @@
 .footer .link:hover {
   color: #fff;
   text-shadow: 0 0 8px #add8e6;
+}
+
+#error-message {
+  color: #ff6b6b;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+#login {
+  font-size: 2rem;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+.login-card input:-webkit-autofill,
+.login-card input:-webkit-autofill:hover,
+.login-card input:-webkit-autofill:focus,
+.login-card input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.2) inset !important;
+  -webkit-text-fill-color: #fff !important;
+  transition: background-color 5000s ease-in-out 0s;
+  font-size: 14px !important;
+  border-radius: 8px;
 }

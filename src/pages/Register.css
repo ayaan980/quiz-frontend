@@ -122,6 +122,15 @@ input {
   text-align: center;
 }
 
+#signUp {
+  font-size: 2rem;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
 #nameInput {
  margin-bottom: 15px;
   padding: 12px;
@@ -135,7 +144,7 @@ input {
   box-sizing: border-box;
   line-height: 1.4;
   align-self: center;
-}¸
+}
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {

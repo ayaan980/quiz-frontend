@@ -41,7 +41,7 @@ const Register = () => {
     <div className="register-page">
       <div className="overlay"></div>
       <form onSubmit={handleRegister} className="register-card">
-        <h2>Register</h2>
+        <h2 id="signUp">Sign Up</h2>
 
         {success && <p className="success-message">Account created! <Link to="/">Sign in now</Link></p>}
         {error && <p className="error-message">{error}</p>}

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Login.css"; // Glassmorphism & blurred bg styles
+import "./Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +11,6 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Optional: Clear previous login tokens on login page mount
   useEffect(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
@@ -42,7 +41,7 @@ const Login = () => {
     <div className="login-page">
       <div className="overlay"></div>
       <form onSubmit={handleLogin} className="login-card">
-        <h2>Login</h2>
+        <h2 id="login">Login</h2>
 
         {error && <p className="error-message">{error}</p>}
 
@@ -61,18 +60,17 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-
-        <div className="options-row">
-          <label>
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-            />
-            Remember me
-          </label>
-          <a href="#" className="forgot-link">Forgot Password?</a>
-        </div>
+<div className="options-row">
+  <label className="remember-label">
+    <input
+      type="checkbox"
+      checked={rememberMe}
+      onChange={(e) => setRememberMe(e.target.checked)}
+    />
+    Remember me
+  </label>
+  <a href="#" className="forgot-link">Forgot Password?</a>
+</div>
 
         <button type="submit" className="login-button">Login</button>
 
