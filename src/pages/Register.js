@@ -47,12 +47,13 @@ const Register = () => {
         {error && <p className="error-message">{error}</p>}
 
         <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+  id="nameInput"
+  type="text"
+  placeholder="Name"
+  value={name}
+  onChange={(e) => setName(e.target.value)}
+  required
+/>
 
         <input
           type="email"

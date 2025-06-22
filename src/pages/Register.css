@@ -50,7 +50,7 @@ input {
 
 /* Inputs */
 .register-card input {
-margin-bottom: 15px;
+  margin-bottom: 15px;
   padding: 12px;
   border-radius: 8px;
   border: none;
@@ -58,8 +58,11 @@ margin-bottom: 15px;
   color: #fff;
   font-size: 14px;
   outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 1.4;
+  align-self: center;
 }
-
 .register-card input::placeholder {
   color: #eee;
 }
@@ -117,6 +120,21 @@ margin-bottom: 15px;
   font-size: 14px;
   text-align: center;
 }
+
+#nameInput {
+ margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  width: 98%;
+  box-sizing: border-box;
+  line-height: 1.4;
+  align-self: center;
+}¸
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
