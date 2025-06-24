@@ -302,4 +302,63 @@ button:hover {
   text-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
 }
+.profile-icon-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
 
+.profile-icon {
+  font-size: 36px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.profile-icon:hover {
+  transform: scale(1.1);
+  color: #ffb3c6;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  padding: 10px 0;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.dropdown-item {
+  padding: 12px 20px;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffb3c6;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

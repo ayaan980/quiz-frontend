@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+import { FaUserCircle } from "react-icons/fa";
 
 const QuizPage = () => {
   const navigate = useNavigate();
@@ -14,21 +15,19 @@ const QuizPage = () => {
   const [count, setCount] = useState(5);
   const [difficulty, setDifficulty] = useState("easy");
   const [experience, setExperience] = useState(0);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // 🔐 Check if logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) navigate("/");
   }, [navigate]);
 
-  // 🚪 Logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     navigate("/");
   };
 
-  // 🧠 Fetch quiz from backend
   const handleGenerateQuiz = async () => {
     if (!topic.trim()) return alert("Please enter a topic");
     setLoading(true);
@@ -63,13 +62,11 @@ const QuizPage = () => {
     setLoading(false);
   };
 
-  // 📝 Select answer
   const handleSelect = (qIndex, option) => {
     setSelectedAnswers((prev) => ({ ...prev, [qIndex]: option }));
   };
 
-  // ✅ Submit quiz
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let correct = 0;
     questions.forEach((q, i) => {
       const correctAnswer = q.answer || q.correctAnswer;
@@ -77,11 +74,31 @@ const QuizPage = () => {
         correct++;
       }
     });
+
     setScore(correct);
     setSubmitted(true);
+
+    // ✅ Save result to backend
+    try {
+      await fetch("http://localhost:8081/api/results", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          topic,
+          totalQuestions: questions.length,
+          score: correct,
+        }),
+      });
+      console.log("Result saved successfully");
+    } catch (error) {
+      console.error("Failed to save result:", error);
+      alert("Result not saved. Check console for details.");
+    }
   };
 
-  // 🔁 Reset quiz
   const handleTryAgain = () => {
     setTopic("");
     setQuestions([]);
@@ -95,9 +112,27 @@ const QuizPage = () => {
       <div className="background-overlay" />
 
       <div className="logout-container">
-        <button onClick={handleLogout} className="logout-button">
-          Logout
-        </button>
+        <div className="profile-icon-container">
+          <FaUserCircle
+            size={32}
+            color="#fff"
+            className="profile-icon"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          />
+          {dropdownOpen && (
+            <div className="profile-dropdown">
+              <div onClick={() => navigate("/profile")} className="dropdown-item">
+                Profile Settings
+              </div>
+              <div onClick={() => navigate("/dashboard")} className="dropdown-item">
+                User Dashboard
+              </div>
+              <div onClick={handleLogout} className="dropdown-item">
+                Logout
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="App">

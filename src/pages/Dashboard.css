@@ -1,0 +1,237 @@
+/* General layout */
+.dashboard-page {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  font-family: "Segoe UI", sans-serif;
+  background: url("https://images.unsplash.com/photo-1717748816410-3efedbe4e597?auto=format&fit=crop&w=1920&q=80") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  position: relative;
+}
+
+/* Optional: Add dark overlay for contrast */
+.dashboard-page::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.45); /* transparent dark overlay */
+  z-index: -1;
+}
+
+/* Navbar layout */
+.dashboard-navbar {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.navbar-top {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.navbar-title {
+  width: 100%;
+  text-align: center;
+}
+
+.navbar-back-btn {
+  background: rgba(0, 229, 255, 0.1);
+  color: #00e5ff;
+  border: 1px solid #00e5ff99;
+  padding: 0.5rem 1.2rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(12px);
+}
+
+.navbar-back-btn:hover {
+  background: rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 12px #00e5ff88;
+}
+
+/* Heading */
+#headerName {
+  font-size: 2.6rem;
+  font-weight: 600;
+  color: #00e5ff;
+  margin-bottom: 0;
+  text-shadow: 0 2px 10px rgba(0, 229, 255, 0.3);
+}
+
+/* Card container */
+.glass-section {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+/* Section headers */
+.result-list h2,
+.chart-section h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+  color: #ffffffcc;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding-bottom: 0.5rem;
+}
+
+/* Quiz attempt row */
+.dashboard-item {
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 5px solid #00e5ff;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.dashboard-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dashboard-item strong {
+  color: #00e5ff;
+}
+
+/* Chart section */
+.chart-section {
+  padding: 2rem 1rem;
+}
+
+.recharts-cartesian-grid line {
+  stroke: rgba(255, 255, 255, 0.1);
+}
+
+.recharts-tooltip-wrapper {
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #00e5ff99;
+  border-radius: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .glass-section {
+    padding: 1.2rem;
+  }
+
+  .dashboard-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  #headerName {
+    font-size: 2rem;
+  }
+
+  .navbar-back-btn {
+    font-size: 0.9rem;
+  }
+}
+
+.result-list ul {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0;
+  list-style: none;
+}
+
+.dashboard-item {
+  margin-bottom: 0.8rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  overflow: hidden;
+  color: white;
+}
+
+.dashboard-table thead {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.95rem;
+}
+
+.dashboard-table th {
+  color: #00e5ff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dashboard-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.download-csv-btn {
+  background: #00e5ff22;
+  border: 1px solid #00e5ff88;
+  color: #00e5ff;
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.download-csv-btn:hover {
+  background: #00e5ff44;
+  border-color: #00e5ffcc;
+  color: white;
+}
+
+.csv-download-wrapper {
+  text-align: right;
+  margin-bottom: 1rem;
+}
