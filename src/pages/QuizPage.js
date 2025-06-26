@@ -214,7 +214,7 @@ const QuizPage = () => {
 
             {currentQuestions.map((q, idx) => {
               const actualIndex = startIndex + idx;
-              const correctAnswer = q.answer || q.correctAnswer;
+              // const correctAnswer = q.answer || q.correctAnswer;
               const userAnswer = selectedAnswers[actualIndex];
 
               return (
