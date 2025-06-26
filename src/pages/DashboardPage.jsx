@@ -18,6 +18,7 @@ import "./Dashboard.css";
 
 const DashboardPage = () => {
   const [results, setResults] = useState([]);
+  const [latestSuggestion, setLatestSuggestion] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,12 +32,27 @@ const DashboardPage = () => {
         },
       })
       .then((res) => {
+        if (!Array.isArray(res.data)) {
+          console.error("Invalid response format:", res.data);
+          return;
+        }
+
         const parsedResults = res.data.map((item) => ({
           ...item,
           takenAtDate: item.takenAt ? new Date(item.takenAt) : null,
         }));
 
         setResults(parsedResults);
+
+        const latest = parsedResults
+          .filter((r) => r.suggestion && r.suggestion.trim() !== "")
+          .sort((a, b) => {
+            const dateA = a.takenAtDate || new Date(0);
+            const dateB = b.takenAtDate || new Date(0);
+            return dateB - dateA;
+          })[0];
+
+        if (latest) setLatestSuggestion(latest.suggestion);
       })
       .catch((err) => console.error("Error fetching results:", err));
   }, [navigate]);
@@ -46,6 +62,7 @@ const DashboardPage = () => {
     Score: r.score,
     "Total Questions": r.totalQuestions,
     "Taken At": r.takenAtDate ? r.takenAtDate.toLocaleString() : "Unknown",
+    Suggestion: r.suggestion || "",
   }));
 
   return (
@@ -107,6 +124,20 @@ const DashboardPage = () => {
           </table>
         )}
       </div>
+
+      {/* 🔹 Suggestion Section */}
+      {latestSuggestion && (
+        <div className="glass-section suggestion-box">
+          <h2>🧠 AI Suggestions to Improve</h2>
+          <p
+            className="suggestion-text"
+            style={{ whiteSpace: "pre-wrap" }}
+            dangerouslySetInnerHTML={{
+              __html: latestSuggestion.replace(/\n/g, "<br/>"),
+            }}
+          />
+        </div>
+      )}
 
       {/* 🔹 Graph Section */}
       {results.length > 0 && (

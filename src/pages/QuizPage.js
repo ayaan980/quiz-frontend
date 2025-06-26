@@ -16,6 +16,9 @@ const QuizPage = () => {
   const [difficulty, setDifficulty] = useState("easy");
   const [experience, setExperience] = useState(0);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const QUESTIONS_PER_PAGE = 5;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -34,6 +37,7 @@ const QuizPage = () => {
     setSubmitted(false);
     setSelectedAnswers({});
     setScore(0);
+    setCurrentPage(0);
 
     try {
       const response = await fetch(
@@ -68,19 +72,24 @@ const QuizPage = () => {
 
   const handleSubmit = async () => {
     let correct = 0;
+    const attemptDetails = [];
+
     questions.forEach((q, i) => {
       const correctAnswer = q.answer || q.correctAnswer;
-      if (selectedAnswers[i] === correctAnswer) {
-        correct++;
-      }
+      const selectedAnswer = selectedAnswers[i];
+      if (selectedAnswer === correctAnswer) correct++;
+      attemptDetails.push({
+        question: q.question,
+        correctAnswer,
+        selectedAnswer: selectedAnswer || "",
+      });
     });
 
     setScore(correct);
     setSubmitted(true);
 
-    // ✅ Save result to backend
     try {
-      await fetch("http://localhost:8081/api/results", {
+      const response = await fetch("http://localhost:8081/api/results", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,11 +99,14 @@ const QuizPage = () => {
           topic,
           totalQuestions: questions.length,
           score: correct,
+          attemptDetails,
         }),
       });
-      console.log("Result saved successfully");
+
+      const data = await response.json();
+      console.log("✅ Result saved successfully:", data);
     } catch (error) {
-      console.error("Failed to save result:", error);
+      console.error("❌ Failed to save result:", error);
       alert("Result not saved. Check console for details.");
     }
   };
@@ -105,7 +117,17 @@ const QuizPage = () => {
     setSelectedAnswers({});
     setSubmitted(false);
     setScore(0);
+    setCurrentPage(0);
   };
+
+  const startIndex = currentPage * QUESTIONS_PER_PAGE;
+  const currentQuestions = questions.slice(startIndex, startIndex + QUESTIONS_PER_PAGE);
+
+  const totalQuestions = questions.length;
+  const answeredCount = Object.keys(selectedAnswers).filter(
+    (key) => selectedAnswers[key]
+  ).length;
+  const progress = totalQuestions === 0 ? 0 : (answeredCount / totalQuestions) * 100;
 
   return (
     <>
@@ -148,21 +170,15 @@ const QuizPage = () => {
             />
 
             <div className="dropdown-container">
-              <select
-                value={count}
-                onChange={(e) => setCount(Number(e.target.value))}
-              >
-                {[3, 5, 10].map((n) => (
+              <select value={count} onChange={(e) => setCount(Number(e.target.value))}>
+                {[3, 5, 10, 15, 20, 25].map((n) => (
                   <option key={n} value={n}>
                     {n} Questions
                   </option>
                 ))}
               </select>
 
-              <select
-                value={difficulty}
-                onChange={(e) => setDifficulty(e.target.value)}
-              >
+              <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
@@ -180,11 +196,7 @@ const QuizPage = () => {
               </select>
             </div>
 
-            <button
-              onClick={handleGenerateQuiz}
-              className="generate-btn"
-              disabled={loading}
-            >
+            <button onClick={handleGenerateQuiz} className="generate-btn" disabled={loading}>
               {loading ? "Generating..." : "Generate Quiz"}
             </button>
 
@@ -192,16 +204,23 @@ const QuizPage = () => {
           </>
         )}
 
-        {questions.length > 0 && (
+        {questions.length > 0 && !submitted && (
           <div className="quiz-section">
-            {questions.map((q, idx) => {
+            <div className="progress-bar">
+              <div className="progress" style={{ width: `${progress}%` }}>
+                <span className="progress-text">{Math.round(progress)}%</span>
+              </div>
+            </div>
+
+            {currentQuestions.map((q, idx) => {
+              const actualIndex = startIndex + idx;
               const correctAnswer = q.answer || q.correctAnswer;
-              const userAnswer = selectedAnswers[idx];
+              const userAnswer = selectedAnswers[actualIndex];
 
               return (
-                <div key={idx} className="question-card">
+                <div key={actualIndex} className="question-card">
                   <h3>
-                    Q{idx + 1}: {q.question}
+                    Q{actualIndex + 1}: {q.question}
                   </h3>
                   <ul>
                     {q.options.map((option, i) => (
@@ -209,40 +228,38 @@ const QuizPage = () => {
                         <label>
                           <input
                             type="radio"
-                            name={`question-${idx}`}
+                            name={`question-${actualIndex}`}
                             value={option}
                             disabled={submitted}
                             checked={userAnswer === option}
-                            onChange={() => handleSelect(idx, option)}
+                            onChange={() => handleSelect(actualIndex, option)}
                           />
                           {option}
                         </label>
                       </li>
                     ))}
                   </ul>
-
-                  {submitted && (
-                    <p
-                      style={{
-                        color:
-                          userAnswer === correctAnswer ? "green" : "red",
-                      }}
-                    >
-                      {userAnswer === correctAnswer
-                        ? "✔ Correct"
-                        : `❌ Incorrect (Answer: ${correctAnswer})`}
-                    </p>
-                  )}
                 </div>
               );
             })}
-          </div>
-        )}
 
-        {!submitted && questions.length > 0 && (
-          <button className="submit-btn" onClick={handleSubmit}>
-            Submit Answers
-          </button>
+            <div className="pagination-buttons">
+              {currentPage > 0 && (
+                <button onClick={() => setCurrentPage((prev) => prev - 1)}>
+                  Previous
+                </button>
+              )}
+              {startIndex + QUESTIONS_PER_PAGE < questions.length ? (
+                <button onClick={() => setCurrentPage((prev) => prev + 1)}>
+                  Next
+                </button>
+              ) : (
+                <button className="submit-btn" onClick={handleSubmit}>
+                  Submit Answers
+                </button>
+              )}
+            </div>
+          </div>
         )}
 
         {submitted && (

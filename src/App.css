@@ -197,8 +197,32 @@ button:hover {
   appearance: auto;
   accent-color: #ffb3c6;
   margin-right: 10px;
-  transform: scale(1.2); /* Slightly larger */
+  transform: scale(1.2);
   cursor: pointer;
+}
+
+/* ====== Pagination Buttons ====== */
+.progress-bar {
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 24px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.progress {
+  background-color: #4caf50;
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
 }
 
 /* ====== Submit Button ====== */
@@ -302,6 +326,7 @@ button:hover {
   text-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
 }
+
 .profile-icon-container {
   position: absolute;
   top: 20px;
