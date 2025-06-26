@@ -19,6 +19,7 @@ import "./Dashboard.css";
 const DashboardPage = () => {
   const [results, setResults] = useState([]);
   const [latestSuggestion, setLatestSuggestion] = useState("");
+  const [sortConfig, setSortConfig] = useState({ key: "takenAtDate", direction: "desc" });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,6 +57,25 @@ const DashboardPage = () => {
       })
       .catch((err) => console.error("Error fetching results:", err));
   }, [navigate]);
+
+  const handleSort = (key) => {
+    setSortConfig((prev) => {
+      if (prev.key === key) {
+        return { key, direction: prev.direction === "asc" ? "desc" : "asc" };
+      }
+      return { key, direction: "asc" };
+    });
+  };
+
+  const sortedResults = [...results].sort((a, b) => {
+    if (!sortConfig.key) return 0;
+    const aValue = a[sortConfig.key];
+    const bValue = b[sortConfig.key];
+
+    if (aValue < bValue) return sortConfig.direction === "asc" ? -1 : 1;
+    if (aValue > bValue) return sortConfig.direction === "asc" ? 1 : -1;
+    return 0;
+  });
 
   const csvData = results.map((r) => ({
     Topic: r.topic,
@@ -98,30 +118,32 @@ const DashboardPage = () => {
         {results.length === 0 ? (
           <p>No attempts yet.</p>
         ) : (
-          <table className="dashboard-table">
-            <thead>
-              <tr>
-                <th>Topic</th>
-                <th>Score</th>
-                <th>Total Questions</th>
-                <th>Taken At</th>
-              </tr>
-            </thead>
-            <tbody>
-              {results.map((result, idx) => (
-                <tr key={idx}>
-                  <td>{result.topic}</td>
-                  <td>{result.score}</td>
-                  <td>{result.totalQuestions}</td>
-                  <td>
-                    {result.takenAtDate
-                      ? result.takenAtDate.toLocaleString()
-                      : "Unknown"}
-                  </td>
+          <div className="table-scroll-wrapper">
+            <table className="dashboard-table">
+              <thead>
+                <tr>
+                  <th onClick={() => handleSort("topic")}>Topic</th>
+                  <th onClick={() => handleSort("score")}>Score</th>
+                  <th onClick={() => handleSort("totalQuestions")}>Total Questions</th>
+                  <th onClick={() => handleSort("takenAtDate")}>Taken At</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {sortedResults.map((result, idx) => (
+                  <tr key={idx}>
+                    <td>{result.topic}</td>
+                    <td>{result.score}</td>
+                    <td>{result.totalQuestions}</td>
+                    <td>
+                      {result.takenAtDate
+                        ? result.takenAtDate.toLocaleString()
+                        : "Unknown"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 

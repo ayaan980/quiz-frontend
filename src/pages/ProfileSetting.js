@@ -1,8 +1,12 @@
 // src/pages/ProfileSettings.jsx
+
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ProfileSettings.css";
 
 const ProfileSettings = () => {
+  const navigate = useNavigate();
+
   const [profile, setProfile] = useState({
     fullName: "",
     nickName: "",
@@ -75,11 +79,18 @@ const ProfileSettings = () => {
         </div>
 
         <div className="email-section">
-          <p>📧 <strong>{profile.email}</strong></p>
+          <p>
+            📧 <strong>{profile.email}</strong>
+          </p>
           <p style={{ fontSize: "12px", opacity: 0.6 }}>Added 1 month ago</p>
         </div>
 
-        <button className="add-email">+ Add Email Address</button>
+        <div className="bottom-buttons-row">
+          <button className="add-email">+ Add Email Address</button>
+          <button className="back-to-quiz-btn" onClick={() => navigate("/quiz")}>
+            ← Back to Quiz
+          </button>
+        </div>
       </div>
     </div>
   );

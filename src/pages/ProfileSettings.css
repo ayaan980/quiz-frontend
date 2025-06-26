@@ -93,3 +93,43 @@
   background-color: #3f88fb;
   color: #fff;
 }
+
+.profile-back-btn-wrapper {
+  padding: 1rem;
+}
+
+.bottom-buttons-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.add-email {
+  background-color: #3f88fb;
+  color: #fff;
+  border: 1px solid #ffffff40;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.add-email:hover {
+  background-color: #ffffff30;
+}
+
+.back-to-quiz-btn {
+  background-color: #3f88fb;
+  color: #fefdfd;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.back-to-quiz-btn:hover {
+  background-color:  #3f88fb;
+}

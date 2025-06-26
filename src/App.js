@@ -4,7 +4,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import QuizPage from "./pages/QuizPage";
 import ProfileSettings from "./pages/ProfileSetting";
-import DashboardPage from "./pages/DashboardPage"; // ✅ Make sure this file is DashboardPage.jsx
+import DashboardPage from "./pages/DashboardPage";
+import PrivateRoute from "./pages/PrivateRoute"; // ✅ Import PrivateRoute
 
 function App() {
   const location = useLocation();
@@ -20,9 +21,33 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/quiz" element={<QuizPage />} />
-      <Route path="/profile" element={<ProfileSettings />} />
-      <Route path="/dashboard" element={<DashboardPage />} />
+
+      {/* ✅ Protected Routes */}
+      <Route
+        path="/quiz"
+        element={
+          <PrivateRoute>
+            <QuizPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <PrivateRoute>
+            <ProfileSettings />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <PrivateRoute>
+            <DashboardPage />
+          </PrivateRoute>
+        }
+      />
+
       <Route path="*" element={<Login />} />
     </Routes>
   );
