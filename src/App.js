@@ -1,22 +1,13 @@
-import React, { useEffect } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import QuizPage from "./pages/QuizPage";
 import ProfileSettings from "./pages/ProfileSetting";
 import DashboardPage from "./pages/DashboardPage";
-import PrivateRoute from "./pages/PrivateRoute"; // ✅ Import PrivateRoute
+import PrivateRoute from "./pages/PrivateRoute";
 
 function App() {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (location.pathname === "/register") {
-      navigate("/");
-    }
-  }, [location.pathname, navigate]);
-
   return (
     <Routes>
       <Route path="/" element={<Login />} />

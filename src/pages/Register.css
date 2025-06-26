@@ -6,7 +6,7 @@ input {
 .register-page {
   height: 100vh;
   width: 100%;
-  background-image: url("https://images.unsplash.com/photo-1607082349566-187342175e2b?auto=format&fit=crop&w=1920&q=80");
+  background-image: url("https://images.unsplash.com/photo-1750284154874-32310fb27954?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
   background-size: cover;
   background-position: center;
   display: flex;
@@ -14,8 +14,26 @@ input {
   align-items: center;
   font-family: 'Segoe UI', sans-serif;
   position: relative;
+  overflow: hidden;
 }
 
+.register-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(4px); /* 👈 Adjust blur strength here */
+  -webkit-backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.2); /* Optional: slight dark overlay */
+  z-index: 0;
+}
+
+.register-page > * {
+  position: relative;
+  z-index: 1;
+}
 /* Optional overlay if needed */
 .overlay {
   position: absolute;
