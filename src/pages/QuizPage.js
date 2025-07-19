@@ -89,7 +89,7 @@ const QuizPage = () => {
     setSubmitted(true);
 
     try {
-      const response = await fetch("http://localhost:8081/api/results", {
+      const response = await fetch("https://quizapp-ujzy.onrender.com/api/results", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -158,7 +158,7 @@ const QuizPage = () => {
       </div>
 
       <div className="App">
-        <h1 id="headerName">AI Quiz Generator</h1>
+        <h1 id="headerName">Quizify</h1>
 
         {!submitted && (
           <>
