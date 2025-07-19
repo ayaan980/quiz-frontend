@@ -15,7 +15,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8081/api/auth/register", {
+      await axios.post("https://quizapp-ujzy.onrender.com/api/auth/register", {
         name,
         email,
         password,

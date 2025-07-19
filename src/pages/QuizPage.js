@@ -41,7 +41,7 @@ const QuizPage = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8081/api/quiz/generate?topic=${encodeURIComponent(
+        `https://quizapp-ujzy.onrender.com/api/quiz/generate?topic=${encodeURIComponent(
           topic
         )}&count=${count}&difficulty=${difficulty}&experience=${experience}`,
         {

@@ -27,7 +27,7 @@ const DashboardPage = () => {
     if (!token) return navigate("/");
 
     axios
-      .get("http://localhost:8081/api/results/me", {
+      .get("https://quizapp-ujzy.onrender.com/api/results/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -19,7 +19,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8081/api/auth/login", {
+      const res = await axios.post("https://quizapp-ujzy.onrender.com/api/auth/login", {
         email,
         password,
       });
