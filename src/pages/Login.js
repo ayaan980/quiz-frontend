@@ -10,6 +10,7 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [buffer, setBuffer] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +21,8 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
+
     try {
       const res = await axios.post("https://quizapp-ujzy.onrender.com/api/auth/login", {
         email,
@@ -28,7 +31,12 @@ const Login = () => {
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("email", res.data.email);
-      navigate("/quiz");
+      setBuffer(true);
+
+      setTimeout(() => {
+        navigate("/quiz");
+      }, 3000); // ⏳ Change time here (3000ms = 3 seconds)
+
     } catch (err) {
       console.error("Login error:", err);
       setError(
@@ -41,9 +49,9 @@ const Login = () => {
     }
   };
 
-  if (loading) {
+  if (buffer) {
     return (
-      <div className="buffer-page">
+      <div className="buffer-page fade-in">
         <div className="loader"></div>
         <p className="buffer-text">Setting things up for you ❤️</p>
       </div>
