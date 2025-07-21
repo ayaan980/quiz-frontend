@@ -1,4 +1,3 @@
-// src/pages/Login.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -9,7 +8,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const [buffer, setBuffer] = useState(false);
   const navigate = useNavigate();
 
@@ -20,9 +18,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-
+    setBuffer(true);
     try {
       const res = await axios.post("https://quizapp-ujzy.onrender.com/api/auth/login", {
         email,
@@ -31,12 +27,11 @@ const Login = () => {
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("email", res.data.email);
-      setBuffer(true);
 
+      // Delay transition to quiz page for effect
       setTimeout(() => {
         navigate("/quiz");
-      }, 3000); // ⏳ Change time here (3000ms = 3 seconds)
-
+      }, 2500); // 2.5s delay
     } catch (err) {
       console.error("Login error:", err);
       setError(
@@ -44,14 +39,13 @@ const Login = () => {
         err.response?.data ||
         "Invalid credentials. Please try again."
       );
-    } finally {
-      setLoading(false);
+      setBuffer(false);
     }
   };
 
   if (buffer) {
     return (
-      <div className="buffer-page fade-in">
+      <div className="buffer-page">
         <div className="loader"></div>
         <p className="buffer-text">Setting things up for you ❤️</p>
       </div>
