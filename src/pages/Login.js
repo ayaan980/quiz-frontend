@@ -9,7 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // 👈 added
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,8 +19,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true); // 👈 start loading
-    setError("");     // clear error
+    setLoading(true);
     try {
       const res = await axios.post("https://quizapp-ujzy.onrender.com/api/auth/login", {
         email,
@@ -38,9 +37,18 @@ const Login = () => {
         "Invalid credentials. Please try again."
       );
     } finally {
-      setLoading(false); // 👈 stop loading
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="buffer-page">
+        <div className="loader"></div>
+        <p className="buffer-text">Setting things up for you ❤️</p>
+      </div>
+    );
+  }
 
   return (
     <div className="login-page">
@@ -78,13 +86,7 @@ const Login = () => {
           <a href="/forgot-password" className="forgot-link">Forgot Password?</a>
         </div>
 
-        <button type="submit" className="login-button" disabled={loading}>
-          {loading ? (
-            <span className="spinner"></span> // 👈 animated spinner
-          ) : (
-            "Login"
-          )}
-        </button>
+        <button type="submit" className="login-button">Login</button>
 
         <div className="footer">
           Don’t have an account?{" "}
