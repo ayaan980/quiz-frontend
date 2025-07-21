@@ -1,21 +1,26 @@
-import React, { useState } from "react";
-import axios from "axios";
+// src/pages/Login.jsx
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css"; // Make sure this contains spinner CSS
+import axios from "axios";
+import "./Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(false); // 👈 added
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-
+    setLoading(true); // 👈 start loading
+    setError("");     // clear error
     try {
       const res = await axios.post("https://quizapp-ujzy.onrender.com/api/auth/login", {
         email,
@@ -24,10 +29,7 @@ const Login = () => {
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("email", res.data.email);
-
-      setTimeout(() => {
-        navigate("/quiz");
-      }, 500); // Slight delay for smooth transition
+      navigate("/quiz");
     } catch (err) {
       console.error("Login error:", err);
       setError(
@@ -36,40 +38,60 @@ const Login = () => {
         "Invalid credentials. Please try again."
       );
     } finally {
-      setLoading(false);
+      setLoading(false); // 👈 stop loading
     }
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleLogin}>
-        <h2>Login</h2>
+    <div className="login-page">
+      <div className="overlay"></div>
+      <form onSubmit={handleLogin} className="login-card">
+        <h2 id="login">Login</h2>
+
+        {error && <p className="error-message">{error}</p>}
 
         <input
           type="email"
           placeholder="Email"
           value={email}
-          required
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <input
           type="password"
           placeholder="Password"
           value={password}
-          required
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
-        {error && <div className="error-msg">{error}</div>}
+        <div className="options-row">
+          <label className="remember-label">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
+            Remember me
+          </label>
+          <a href="/forgot-password" className="forgot-link">Forgot Password?</a>
+        </div>
 
-        <button
-          type="submit"
-          className={`login-button ${loading ? "loading" : ""}`}
-          disabled={loading}
-        >
-          {loading ? <span className="spinner"></span> : "Login"}
+        <button type="submit" className="login-button" disabled={loading}>
+          {loading ? (
+            <span className="spinner"></span> // 👈 animated spinner
+          ) : (
+            "Login"
+          )}
         </button>
+
+        <div className="footer">
+          Don’t have an account?{" "}
+          <span className="link" onClick={() => navigate("/register")}>
+            Register
+          </span>
+        </div>
       </form>
     </div>
   );
